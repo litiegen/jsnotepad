@@ -7,44 +7,61 @@ module.exports = function (grunt) {
         preserveLineBreaks: false
       },
       files: {
-        expand: true,
-        src: ['*.html', './*/*.html', '??-*/??-*/*.html'],
-        dest: 'dist/'
-      }
-    },
-    cssmin: {
-      files: {   
-        expand: true,
-        src: ['css/*.css', './*/*.css', '??-*/??-*/*.css', '??-*/css/*.css'],
-        dest: 'dist/'
-      }
-    },
-    uglify: {
-      main: {
-        files: [{
-          expand: true,
-          src: ['js/*.js', './*/*.js', '??-*/0?-*/*.js', '??-*/js/*.js'],
-          dest: 'dist/'
-        }]
+        src: 'dist/index.html',
+        dest: 'dist/index.html'
       }
     },
     imagemin: {
-      options: {
-        optimizationLevel: 3
-      },
       files: {
         expand: true,
-        cwd: 'images',
-        src: ['**/*.{png,jpg,gif}'],
-        dest: 'dist/images/'
+        src: ['./images/*.png'],
+        dest: 'dist/'
       }
     },
+    copy: {
+      html: {
+        src: './index.html',
+        dest: './dist/index.html'
+      }
+    },
+    concat: {
+      js: {
+        src: ['js/*.js', './com/**/*.js'],
+        dest: 'dist/bundle.js'
+      },
+      css: {
+        src: ['css/*.css', './com/**/*.css'],
+        dest: 'dist/bundle.css'
+      }
+    },
+    uglify: {
+      'dist/bundle.min.js': 'dist/bundle.js'
+    },
+    cssmin: {
+      'dist/bundle.min.css': 'dist/bundle.css'
+    },
+    useminPrepare: {
+      html: 'index.html',
+      options: {
+        dest: 'dist'
+      }
+    },
+    usemin: {
+      html: ['dist/index.html']
+    },
+    clean: {
+      end: ['dist/bundle.css', 'dist/bundle.js', '.tmp']
+    }
   });
-
-  grunt.loadNpmTasks("grunt-contrib-htmlmin");
-  grunt.loadNpmTasks("grunt-contrib-cssmin");
-  grunt.loadNpmTasks("grunt-contrib-uglify");
+  
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('default', ['uglify','cssmin', 'htmlmin','imagemin']);
+  grunt.registerTask('default', ['copy:html', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin', 'htmlmin', 'imagemin', 'clean:end']);
 };
