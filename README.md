@@ -1,2 +1,2 @@
 # jsnotepad
-🐱‍👤Using JavaScript to complete the page Notepad
+Windows 记事本网页版
