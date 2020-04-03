@@ -4,8 +4,8 @@ np.config = {
 	'appContainer': '.notepad-app'
 };
 
-np.bShowStatusBar = true;   // 是否显示状态栏
-np.bWrap = true;   // 是否换行
+np.bShowStatusBar = false;   // 是否显示状态栏
+np.bWrap = false;   // 是否换行
 np.fontFamily = 'Arial'; // 默认字体
 np.fontStype = '常规';  // 默认字体样式
 np.fontSize = '12';    // 默认字体大小：12pt
