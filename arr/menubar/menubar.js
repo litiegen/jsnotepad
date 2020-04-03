@@ -21,7 +21,7 @@ var $menubar = (function() {
       $title.attr('data-id', i);
       $titles.append($title);
 
-      $title.click(function() {
+      $title.click(function(e) {
         var i = Number(this.dataset.id);
 
         if(active === -1) {
@@ -35,6 +35,8 @@ var $menubar = (function() {
           menus[active].css({ display: 'none' });
           active = -1;
         }
+
+        e.stopPropagation();
       });
 
       $title.hover(function() {
@@ -80,14 +82,17 @@ var $menubar = (function() {
 
         $menus.append($menu);
 
-        $menu.click(function() {
+        $menu.click(function(e) {
+          e.stopPropagation();
+
           if($(this).hasClass('disabled')) return;
 
           var i = this.dataset.x, j = this.dataset.y;
 
-          menuData[i].menuItems[j].handler();
           menus[i].css({display: 'none'});
           active = -1;
+
+          menuData[i].menuItems[j].handler();
         });
       }
 
@@ -136,6 +141,13 @@ var $menubar = (function() {
     }
   }
 
+  function hideMenu() {
+    if(active === -1) return;
+
+    menus[active].css({display: 'none'});
+    active = -1;
+  }
+
   function init() {
     createMenuTitle();
     createMenus();
@@ -151,6 +163,7 @@ var $menubar = (function() {
   return {
     show: show,
     checked: checked,
-    enabled: enabled
+    enabled: enabled,
+    hideMenu: hideMenu
   };
 }());
