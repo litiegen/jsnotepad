@@ -1,10 +1,10 @@
 {
   "name": "jsnotepad",
   "version": "1.0.0",
-  "description": "Windows 记事本网页版",
+  "description": "🐱‍👤Using JavaScript to complete the page Notepad",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
